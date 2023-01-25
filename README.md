@@ -1,6 +1,15 @@
+
+This is a template that is meant to teach how to make word Press Template you can actually find the custom 
+theme inside wp-content/themes/jaytemplate
+
+=> The theme-template directory inside the jaytemplate file is the html template from which this was build
+=> This Readme explains all the steps that were taken to do this
+
+
+
 site title : template site
 username : junery115
-password : notepad3
+password : your_password
 email : junery115@gmail.com
 
 ->to start we will create a theme folder inside our /wp-content/themes folder
