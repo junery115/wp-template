@@ -1,0 +1,161 @@
+site title : template site
+username : junery115
+password : notepad3
+email : junery115@gmail.com
+
+->to start we will create a theme folder inside our /wp-content/themes folder
+with a name of our choosing in this case jaytemplate
+-> secondly we will go inside that theme folder and create the necessary
+folders eg 
+=> jaytemplate -> assets (css, fonts, images, js)
+
+-> The next folder we create under template will be classes, and it will be
+for custom classes we use inorder maybe to override wordpress functionality
+=> jaytemplate -> classes
+
+-> We create inc folder: this will be for includes, that is for any other
+files that we want to include
+=> jaytemplate -> includes
+
+-> template-part: allows us to split individual parts of our templates even
+further 
+=> jaytemplates -> template-part
+
+-> templates: the last required
+=> jaytemplates -> templates
+
+We are doing to set up several files, but only 2 files are required for a
+wordpress theme, that is the css file and the index.php file.  
+
+
+-> so we will just create blank files for the time being
+
+jaytemplate 
+ => 404.php: responsible for serving 404 errors,
+ => archive.php: delivering archive, e.g, will be the index of a blog post in a
+hierachal format. 
+=> comment.php : comment part
+=> footer.php : responsible for the footer
+=> functions.php: special meaning in word (where you can override and initiate
+different features of your theme inside of wordpress, raw php code to override
+and change the way php works.
+=> header.php : responsible for the head section
+=> index.php: first required file, serves as a fallback, if wordpress cannot
+locate a file in the hierachy it will always fallback to the index.php
+=> page.php: responsible for displaying static pages, things that aren't blog
+post or blog archives, say an about page
+=> readme.txt : just for things like copyright etc if someone else was to
+download our template
+=> search.php: template file that will display search results
+=> single.php: responsible for displaying single blog post.
+=> style.css: second required file, master stylesheet for the website
+
+I'll add a screen short of the wordpress template hirarchy which you can find
+on wphierarchy.com 
+we added the front-page.php: This is for the front page
+
+-> To make our wordpress theme usable we go into teh style.css page
+at the top there is a comment section, wordpress will use that to display when
+u go to install 
+
+-> add the comments as in the example (style.css file)
+
+=> when u go take a look at your theme you'll be able to see all the
+information you added to your stylesheet and your screenshot shows too.
+(verify for size)
+=> You can activate the theme
+
+
+==> we Will start work on the front-page.php
+
+-> if you just activate the theme it will show nothing
+
+-> Go to the example theme we are using (theme template) and copy everything
+from the index page and paste that into the front-page.php
+-> Once you do this, you'll see that things appear on the site
+
+
+-> We will enque all our wordpress files (css etc)
+=> And we will do that in our functions.php file 
+
+we will create a function call it anything in my case
+jaytemplate_register_style(); 
+inside i'll use the enqueue() function and put the path to my styles
+=> Then i'll use the add_action() function to let wordpress know about that
+functon
+=> to test it we will go to the front-page and delete the style command and
+replace it with code and the code is simply wp_head()
+
+=> We will do the same for the cdn bootstrap and the fontawesome, just replaces the $path with the
+cdn path, 
+=> when we do this we will see that the order of loading the style sheet might
+be wrong, in that case, we will use the empty array in our style and put
+bootstrap inside first, this just tells the system that our css is dependent
+on the bootstrap stylesheed which will automatically load it  before our css
+=> To make the version of our css dynamic we will create a $version variable
+and pass it the wp_get_theme()->get('version');
+=> We will replace the version in our stylesheet with the $version variable
+this will make it dynamic so that everything we update our version from our
+stylesheed comments its going to update here too
+
+=> The version parameter is totally optional
+
+-> We will do the same for the scripts as well
+=> This takes 3 parameters, the name, the empty array() for dependency and
+true or false, true meaning put at the bottom, false leaves it at the top and
+false is the default, but we want our jquery to be loaded at the bottom.
+
+-> Next we will create the header and the footer file
+
+-> Next we will create the header.php and the footer.php file
+=> Depends on you what you want to be in the header of the footer. But in this
+case everything in the head tag we can put in the header
+
+=> Once that is done just call the get_header() and get_footer() that works
+same as includes in php.
+
+-> We need to change things that are dynamic like our place title
+=> 2 ways you hardcode the title into the head section, then you replace it
+with get_title(), Another method is completely remove the title out of the
+head section and you let wordpress add the title by itself and that is what we
+will go with here.
+
+=> Go to functions.php file ,  at the top add app_theme_support('title_tag),
+this will add dynamic title ta g support, it does this as long as we have in
+our header tags the wp_head() command
+=> Put that in a function and then add an action to tell wordpress about it
+using the hook 'after_setup_theme'. This allows wordpress to manage the tiles
+of the page.
+
+
+=> We will add a few more options inside our theme to add some extra theme
+support
+we will take image support for example, looking at the dimensions of our page,
+if we upload images, we don't want them to be larger than our page.
+=> we can do what we know as adding custom thumbnail sizes so that each time
+we are inside of wordpress, if we go to media gallery and you add images,
+wordpress automatically resizes those images and it uses the sizes that are
+set up inside your settings, settings->media( you'll notice it has a thumbnail
+size, a medium size and a large size). If you want to customize sizes beyong
+this 3, though u can just change them there, you need to do that inside your
+theme with the add custom sizes. For now we will leave the defaults.
+
+-> The next thing will be letting our content be managed by wordpress.
+=> We will delete all the content inside the main content. If there is header
+and footer info that we need to pass into the header and footer files we will.
+
+=> Then we will see wordpress loop which is how we can tell wp to query the db
+and pull out all the content from there and actually insert it into your main
+section of content.
+
+=> We need to take all the hardcoded content that we've added into our
+front-page.php and put that inside of wp. 
+
+=> login into wp and go to our pages section and say add new
+
+=> create a new page , give it the title home sweet home just for example and
+publish it, 
+=> then go into settings->reading, and make the home page to display as static
+page and make it home sweet home age  and save the changes
+
+
