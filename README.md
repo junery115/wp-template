@@ -10,7 +10,7 @@ theme inside wp-content/themes/jaytemplate
 site title : template site
 username : junery115
 password : your_password
-email : junery115@gmail.com
+email : your_email
 
 ->to start we will create a theme folder inside our /wp-content/themes folder
 with a name of our choosing in this case jaytemplate
